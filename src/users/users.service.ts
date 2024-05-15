@@ -46,12 +46,16 @@ export class UsersService {
 
     async updateUser(id: String, updateUserDto: UpdateUserDto) {
         try {
-            const updatedUser = await this.userModel.updateOne({ _id: id }, { ...updateUserDto });
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto);
             if (!updatedUser)  throw new HttpException("Can't find the user with the given data value", 404);
             return updatedUser;
         } catch (error) {
             console.log(error);
             throw error;
         }
+    }
+
+    async deleteUser(id: String) {
+        return this.userModel.findByIdAndDelete(id);
     }
 }
