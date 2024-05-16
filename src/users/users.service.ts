@@ -56,6 +56,11 @@ export class UsersService {
     }
 
     async deleteUser(id: String) {
-        return this.userModel.findByIdAndDelete(id);
+        try {
+            return this.userModel.findByIdAndDelete(id);
+        } catch(error) {
+            console.log(error);
+            throw error;
+        }
     }
 }
